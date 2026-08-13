@@ -1,0 +1,18 @@
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import { CartProvider } from './context/CartContext.jsx'
+import { Toaster } from 'react-hot-toast' // Toaster ကို Import လုပ်ပါ
+import { BrowserRouter } from 'react-router-dom' // BrowserRouter Import လုပ်ပါ
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <BrowserRouter>
+    <CartProvider>
+      {/* Toast Notification Container */}
+      <Toaster position="bottom-right" reverseOrder={false} />
+      <App />
+    </CartProvider>
+    </BrowserRouter>
+  </React.StrictMode>,
+)
