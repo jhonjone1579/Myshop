@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <CartProvider>
       <WishlistProvider>
       {/* Toast Notification Container */}
-      <Toaster position="bottom-right" reverseOrder={false} />
+      <Toaster position="top-center" reverseOrder={false} />
       <App />
       </WishlistProvider>
     </CartProvider>
