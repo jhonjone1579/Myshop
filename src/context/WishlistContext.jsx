@@ -13,18 +13,17 @@ export function WishlistProvider({ children }) {
     localStorage.setItem('my_wishlist', JSON.stringify(wishlist));
   }, [wishlist]);
 
-  // Wishlist ထဲ ပစ္စည်းထည့်/ထုတ် ပြုလုပ်ပေးမည့် Function
+  // Wishlist ထဲ ပစ္စည်းထည့်/ထုတ် ပြုလုပ်ပေးမည့် Function (ပြင်ဆင်ပြီး)
   const toggleWishlist = (product) => {
-    setWishlist((prev) => {
-      const exists = prev.some((item) => item.id === product.id);
-      if (exists) {
-        toast.success('Wishlist မှ ဖယ်ရှားလိုက်ပါပြီ');
-        return prev.filter((item) => item.id !== product.id);
-      } else {
-        toast.success('Wishlist ထဲသို့ ထည့်သွင်းပြီးပါပြီ');
-        return [...prev, product];
-      }
-    });
+    const exists = wishlist.some((item) => item.id === product.id);
+
+    if (exists) {
+      setWishlist((prev) => prev.filter((item) => item.id !== product.id));
+      toast.success('Wishlist မှ ဖယ်ရှားလိုက်ပါပြီ');
+    } else {
+      setWishlist((prev) => [...prev, product]);
+      toast.success('Wishlist ထဲသို့ ထည့်သွင်းပြီးပါပြီ');
+    }
   };
 
   // ပစ္စည်းတစ်ခု Wishlist ထဲ ရောက်မရောက် စစ်ဆေးပေးသည့် Function
