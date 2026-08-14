@@ -8,9 +8,9 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login,loginWithGoogle } = useAuth();
   const navigate = useNavigate();
-
+// Email/Password ဖြင့် Login ဝင်ခြင်း
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -24,7 +24,16 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
-
+// Google ဖြင့် 1-Click Login ဝင်ခြင်း
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      toast.success('Google အကောင့်ဖြင့် အောင်မြင်စွာ ဝင်ရောက်ပြီးပါပြီ 🚀');
+      navigate('/');
+    } catch (error) {
+      toast.error('Google ဖြင့် အကောင့်ဝင်ခြင်း မအောင်မြင်ပါ');
+    }
+  };
   return (
     <div className="container mx-auto flex h-[80vh] items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-8 shadow-sm">

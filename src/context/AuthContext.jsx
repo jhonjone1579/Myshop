@@ -3,7 +3,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
+  GoogleAuthProvider, // 1. GoogleAuthProvider ထည့်ပါ
+  signInWithPopup     // 2. signInWithPopup ထည့်ပါ
 } from 'firebase/auth';
 import { auth } from '../firebase';
 
@@ -21,6 +23,11 @@ export function AuthProvider({ children }) {
   // အကောင့် ဝင်ခြင်း
   const login = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
+  };
+  // 3. Google ဖြင့် Login ဝင်မည့် Function သစ်
+  const loginWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
   };
 
   // အကောင့် ထွက်ခြင်း
