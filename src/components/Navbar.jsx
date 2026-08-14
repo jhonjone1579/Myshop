@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { ShoppingCart, Store, Heart } from 'lucide-react'; // Heart import လုပ်ပါ
+import { ShoppingCart, Store, Heart, User, LogOut } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { useWishlist } from '../context/WishlistContext'; // Import လုပ်ပါ
+import { useWishlist } from '../context/WishlistContext';
+import { useAuth } from '../context/AuthContext'; // Import AuthContext
 import CartModal from './CartModal';
 import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const { totalItems } = useCart();
   const { wishlist } = useWishlist();
+  const { currentUser, logout } = useAuth(); // Auth Context မှ User နှင့် Logout ကို ယူသုံးပါသည်
   const [isCartOpen, setIsCartOpen] = useState(false);
 
   return (
@@ -19,7 +21,7 @@ export default function Navbar() {
             <span>MyShop</span>
           </Link>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             {/* Wishlist Link */}
             <Link
               to="/wishlist"
@@ -47,6 +49,30 @@ export default function Navbar() {
                 </span>
               )}
             </div>
+
+            {/* Login / User Email / Logout ခလုတ် */}
+            {currentUser ? (
+              <div className="flex items-center gap-2 border-l border-gray-200 pl-3">
+                <span className="hidden sm:inline text-xs font-semibold text-gray-600 max-w-30 truncate">
+                  {currentUser.email}
+                </span>
+                <button
+                  onClick={logout}
+                  className="p-2 rounded-full hover:bg-red-50 text-gray-600 hover:text-red-500 transition-colors"
+                  title="Logout အကောင့်ထွက်မည်"
+                >
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center gap-1.5 rounded-xl bg-blue-600 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors shadow-sm"
+              >
+                <User className="h-4 w-4" />
+                <span>Login</span>
+              </Link>
+            )}
           </div>
         </div>
       </header>
